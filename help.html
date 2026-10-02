@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Help - FurniRent</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 70px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6b7d6a;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            color: #6b7d6a;
+        }
+
+        /* HELP HEADER */
+
+        .help-header {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .help-header h1 {
+            font-size: 40px;
+            color: #4f5f4e;
+            margin-bottom: 12px;
+        }
+
+        .help-header p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        /* HELP CARDS */
+
+        .help-container {
+            width: 84%;
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            padding-bottom: 50px;
+        }
+
+        .help-card {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .help-icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .help-card h3 {
+            color: #4f5f4e;
+            margin-bottom: 10px;
+        }
+
+        .help-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .help-card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #6b7d6a;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        .help-card a:hover {
+            background-color: #536553;
+        }
+
+        /* FAQ */
+
+        .faq-section {
+            width: 84%;
+            max-width: 900px;
+            margin: 10px auto 60px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            color: #4f5f4e;
+            margin-bottom: 25px;
+            font-size: 30px;
+        }
+
+        .faq {
+            background: white;
+            padding: 20px 25px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq h3 {
+            color: #4f5f4e;
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .faq p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 768px) {
+
+            nav {
+                padding: 0 4%;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            nav ul li a {
+                font-size: 13px;
+            }
+
+            .help-header h1 {
+                font-size: 32px;
+            }
+
+            .help-container {
+                grid-template-columns: 1fr;
+                width: 90%;
+            }
+
+            .faq-section {
+                width: 90%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            Furni<span>Rent</span>
+        </div>
+
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Furniture</a></li>
+            <li><a href="cart.html"> Cart</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="help.html">Help</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- HELP HEADER -->
+
+    <section class="help-header">
+
+        <h1>How Can We Help?</h1>
+
+        <p>
+            Find answers and support for your FurniRent rental.
+        </p>
+
+    </section>
+
+
+    <!-- HELP OPTIONS -->
+
+    <section class="help-container">
+
+        <div class="help-card">
+
+            <div class="help-icon">📞</div>
+
+            <h3>Call Us</h3>
+
+            <p>
+                Need quick help? Contact our customer support team
+                for assistance.
+            </p>
+
+            <a href="#" onclick="alert('Please call FurniRent customer support.')">
+                Call Now
+            </a>
+        </div>
+
+
+        <div class="help-card">
+
+            <div class="help-icon">💬</div>
+
+            <h3>Chat With Us</h3>
+
+            <p>
+                Have a question about furniture, rental or payment?
+                Chat with our support team.
+            </p>
+
+            <a href="#" onclick="openChat()">
+                Chat With Us
+            </a>
+        </div>
+
+
+        <div class="help-card">
+
+            <div class="help-icon">📦</div>
+
+            <h3>Track Order</h3>
+
+            <p>
+                Check the current status of your furniture rental
+                using your Order ID.
+            </p>
+
+            <a href="track.html">
+                Track Order
+            </a>
+
+        </div>
+
+
+        <div class="help-card">
+
+            <div class="help-icon">🛒</div>
+
+            <h3>Cart & Rental</h3>
+
+            <p>
+                Add furniture to your cart, change quantity or
+                remove unwanted items before renting.
+            </p>
+
+            <a href="cart.html">
+                Open Cart
+            </a>
+
+        </div>
+
+
+        <div class="help-card">
+
+            <div class="help-icon">💳</div>
+
+            <h3>Payment Help</h3>
+
+            <p>
+                Choose from available payment options during
+                the rental process.
+            </p>
+
+            <a href="payment.html">
+                Payment Page
+            </a>
+
+        </div>
+
+
+<div class="help-card">
+
+    <div class="help-icon">🚪</div>
+
+    <h3>Logout</h3>
+
+    <p>
+        Logout from your FurniRent account safely.
+    </p>
+
+    <a href="#" onclick="logoutUser()">
+        Logout
+    </a>
+
+</div>
+
+    </section>
+
+
+    <!-- FAQ SECTION -->
+
+    <section class="faq-section">
+
+        <h2>Frequently Asked Questions</h2>
+
+
+        <div class="faq">
+
+            <h3>How can I rent furniture?</h3>
+
+            <p>
+                Open the Furniture page, select the furniture you
+                want and click Add to Cart. Then open your Cart
+                and click Rent Now.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <h3>Can I change the quantity?</h3>
+
+            <p>
+                Yes. You can increase or decrease the quantity
+                directly from your Cart.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <h3>How can I track my order?</h3>
+
+            <p>
+                After your rental is confirmed, use your Order ID
+                on the Track Order page.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <h3>Can I cancel my order?</h3>
+
+            <p>
+                Yes. Open the Track Order page and enter your
+                Order ID. If cancellation is available, you can
+                cancel the order there.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <h3>What payment methods are available?</h3>
+
+            <p>
+                FurniRent provides UPI, Debit/Credit Card and
+                Cash on Delivery options in the payment section.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <h3>Do I need an account to rent furniture?</h3>
+
+            <p>
+                Yes. You need to log in or create an account
+                before using the FurniRent rental service.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 FurniRent | Rent Furniture. Live Comfortably.
+        </p>
+
+    </footer>
+    <!-- AI CHAT BOX -->
+
+<div class="chat-box" id="chatBox">
+
+    <div class="chat-header">
+        🤖 FurniRent AI Support
+        <span onclick="closeChat()">✕</span>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+
+        <div class="bot-message">
+            Hi! 👋 I'm FurniRent AI Support.
+            How can I help you?
+        </div>
+
+    </div>
+
+    <div class="chat-input">
+
+        <input
+            type="text"
+            id="userMessage"
+            placeholder="Type your message..."
+            onkeydown="if(event.key==='Enter') sendMessage()"
+        >
+
+        <button onclick="sendMessage()">
+            ➤
+        </button>
+
+    </div>
+
+</div>
+
+<style>
+
+.chat-box {
+    display: none;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    width: 350px;
+    height: 470px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.chat-header {
+    background: #6b7d6a;
+    color: white;
+    padding: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-header span {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.chat-messages {
+    height: 350px;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f8f9fa;
+}
+
+.bot-message,
+.user-message {
+    max-width: 80%;
+    padding: 10px 13px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+.bot-message {
+    background: #e8eee8;
+    color: #333;
+}
+
+.user-message {
+    background: #6b7d6a;
+    color: white;
+    margin-left: auto;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.chat-input button {
+    margin-left: 8px;
+    width: 45px;
+    border: none;
+    border-radius: 8px;
+    background: #6b7d6a;
+    color: white;
+    cursor: pointer;
+}
+
+</style>
+
+<script>
+
+function openChat() {
+    document.getElementById("chatBox").style.display = "block";
+}
+
+function closeChat() {
+    document.getElementById("chatBox").style.display = "none";
+}
+
+function sendMessage() {
+
+    const input = document.getElementById("userMessage");
+    const message = input.value.trim();
+
+    if (message === "") {
+        return;
+    }
+
+    const chatMessages = document.getElementById("chatMessages");
+
+    chatMessages.innerHTML += `
+        <div class="user-message">
+            ${message}
+        </div>
+    `;
+
+    input.value = "";
+
+    setTimeout(function() {
+
+        const reply = getBotReply(message);
+
+        chatMessages.innerHTML += `
+            <div class="bot-message">
+                ${reply}
+            </div>
+        `;
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    }, 500);
+}
+
+function getBotReply(message) {
+
+    message = message.toLowerCase();
+
+    if (message.includes("sofa")) {
+        return "You can find sofas on the Furniture page. Select a sofa and click Add to Cart. 🛋️";
+    }
+
+    if (message.includes("cart")) {
+        return "Open the Cart page to view your selected furniture, change quantity and check your monthly rent. 🛒";
+    }
+
+    if (message.includes("payment")) {
+        return "We currently provide UPI, Debit/Credit Card and Cash on Delivery options. 💳";
+    }
+
+    if (message.includes("track") || message.includes("order")) {
+        return "Go to Track Order and enter your Order ID to check your rental status. 📦";
+    }
+
+    if (message.includes("cancel")) {
+        return "You can cancel your order from the Track Order page if cancellation is available. ❌";
+    }
+
+    if (message.includes("login") || message.includes("signup")) {
+        return "You can log in or create your FurniRent account from the Login page. 🔐";
+    }
+
+    if (message.includes("hello") || message.includes("hi")) {
+        return "Hello! 👋 How can I help you with your FurniRent rental?";
+    }
+
+    return "I'm here to help! You can ask me about furniture, cart, payment, orders, tracking or cancellation. 😊";
+}
+
+</script>
+
+</body>
+</html>

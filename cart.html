@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - FurniRent</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f3ef;
+            color: #333;
+        }
+
+        header {
+            background: #817368;
+            color: white;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .cart-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .cart-item h3 {
+            margin-top: 0;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 10px 0;
+        }
+
+        button {
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .qty-btn {
+            background: #5a4636;
+            color: white;
+        }
+
+        .remove-btn {
+            background: #d9534f;
+            color: white;
+        }
+
+        .summary {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+
+        .rent-btn {
+            width: 100%;
+            padding: 14px;
+            background: #5a4636;
+            color: white;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .empty {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1> Your Cart</h1>
+    <p>FurniRent</p>
+</header>
+
+<div class="container">
+
+    <div id="cartItems"></div>
+
+    <div class="summary" id="summary" style="display:none;">
+        <h2>Rental Summary</h2>
+
+        <p>
+            Total Items:
+            <strong id="totalItems">0</strong>
+        </p>
+
+        <p>
+            Total Monthly Rent:
+            <strong>₹<span id="totalRent">0</span>/month</strong>
+        </p>
+
+        <button class="rent-btn" onclick="rentNow()">
+            Rent Now
+        </button>
+    </div>
+
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function displayCart() {
+
+    const cartItems = document.getElementById("cartItems");
+    const summary = document.getElementById("summary");
+
+    cartItems.innerHTML = "";
+
+    if (cart.length === 0) {
+
+        cartItems.innerHTML = `
+            <div class="empty">
+                <h2>Your cart is empty</h2>
+                <p>Add some furniture to continue.</p>
+                <button onclick="location.href='products.html'">
+                    Browse Furniture
+                </button>
+            </div>
+        `;
+
+        summary.style.display = "none";
+        return;
+    }
+
+    summary.style.display = "block";
+
+    let totalItems = 0;
+    let totalRent = 0;
+
+    cart.forEach((item, index) => {
+
+        const quantity = item.quantity || 1;
+        const itemTotal = item.price * quantity;
+
+        totalItems += quantity;
+        totalRent += itemTotal;
+
+        cartItems.innerHTML += `
+            <div class="cart-item">
+
+                <h3>${item.name}</h3>
+
+                <p>
+                    Monthly Rent:
+                    ₹${item.price}/month
+                </p>
+
+                <div class="quantity">
+
+                    <button class="qty-btn"
+                        onclick="changeQuantity(${index}, -1)">
+                        −
+                    </button>
+
+                    <strong>${quantity}</strong>
+
+                    <button class="qty-btn"
+                        onclick="changeQuantity(${index}, 1)">
+                        +
+                    </button>
+
+                </div>
+
+                <p>
+                    Item Total:
+                    <strong>₹${itemTotal}/month</strong>
+                </p>
+
+                <button class="remove-btn"
+                    onclick="removeItem(${index})">
+                    Remove
+                </button>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("totalItems").innerText = totalItems;
+    document.getElementById("totalRent").innerText = totalRent;
+}
+
+
+function changeQuantity(index, change) {
+
+    cart[index].quantity += change;
+
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    displayCart();
+}
+
+
+function removeItem(index) {
+
+    cart.splice(index, 1);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    displayCart();
+}
+
+
+function rentNow() {
+
+    if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    window.location.href = "contact.html";
+}
+
+
+displayCart();
+
+</script>
+
+</body>
+</html>

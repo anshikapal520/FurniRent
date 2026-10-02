@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Furniture | FurniRent</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #faf7f2;
+            color: #333;
+        }
+
+        nav {
+            height: 70px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #8b5e3c;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        nav ul li a:hover {
+            color: #8b5e3c;
+        }
+
+        .page-title {
+            text-align: center;
+            padding: 50px 20px 30px;
+        }
+
+        .page-title h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #666;
+        }
+
+        .filters {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .filter-btn {
+            border: none;
+            background-color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
+            background-color: #8b5e3c;
+            color: white;
+        }
+
+        .products {
+            width: 84%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding-bottom: 60px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-image {
+            height: 220px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .category {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #8b5e3c;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .rent-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: #8b5e3c;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .rent-btn:hover {
+            background-color: #68442b;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+
+        @media(max-width: 768px) {
+
+            nav {
+                padding: 0 4%;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+
+        <div class="logo">
+            Furni<span>Rent</span>
+        </div>
+
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Furniture</a></li>
+            <li><a href="cart.html"> Cart</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="help.html">Help</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- PAGE TITLE -->
+    <section class="page-title">
+
+        <h1>Our Furniture</h1>
+
+        <p>
+            Choose stylish and comfortable furniture for your home.
+        </p>
+
+    </section>
+
+
+    <!-- FILTERS -->
+    <div class="filters">
+
+        <button class="filter-btn"
+            onclick="filterFurniture('all')">
+            All
+        </button>
+
+        <button class="filter-btn"
+            onclick="filterFurniture('Living Room')">
+            Living Room
+        </button>
+
+        <button class="filter-btn"
+            onclick="filterFurniture('Bedroom')">
+            Bedroom
+        </button>
+
+        <button class="filter-btn"
+            onclick="filterFurniture('Study')">
+            Study
+        </button>
+
+        <button class="filter-btn"
+            onclick="filterFurniture('Dining')">
+            Dining
+        </button>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+    <section class="products">
+
+
+        <!-- SOFA -->
+        <div class="product-card"
+            data-category="Living Room">
+
+            <div class="product-image">
+                <img src="images/MODERN SOFA.jpeg"
+                    alt="Modern Sofa">
+            </div>
+
+            <div class="product-info">
+
+                <h3>Modern Sofa</h3>
+
+                <p class="category">
+                    Living Room
+                </p>
+
+                <p class="price">
+                    ₹1,499 / month
+                </p>
+
+                <button class="rent-btn"
+                    onclick="addToCart('Modern Sofa', 1499)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- BED -->
+        <div class="product-card"
+            data-category="Bedroom">
+
+            <div class="product-image">
+                <img src="images/MODERN BED.jpeg"
+                    alt="Queen Size Bed">
+            </div>
+
+            <div class="product-info">
+
+                <h3>Queen Size Bed</h3>
+
+                <p class="category">
+                    Bedroom
+                </p>
+
+                <p class="price">
+                    ₹1,999 / month
+                </p>
+
+                <button class="rent-btn"
+                    onclick="addToCart('Queen Size Bed', 1999)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- STUDY TABLE -->
+        <div class="product-card"
+            data-category="Study">
+
+            <div class="product-image">
+                <img src="images/STUDY TABLE.jpg"
+                    alt="Study Table">
+            </div>
+
+            <div class="product-info">
+
+                <h3>Study Table</h3>
+
+                <p class="category">
+                    Study
+                </p>
+
+                <p class="price">
+                    ₹699 / month
+                </p>
+
+                <button class="rent-btn"
+                    onclick="addToCart('Study Table', 699)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- DINING SET -->
+        <div class="product-card"
+            data-category="Dining">
+
+            <div class="product-image">
+                <img src="images/DINING TABLE.jpeg"
+                    alt="Dining Set">
+            </div>
+
+            <div class="product-info">
+
+                <h3>Dining Set</h3>
+
+                <p class="category">
+                    Dining
+                </p>
+
+                <p class="price">
+                    ₹1,299 / month
+                </p>
+
+                <button class="rent-btn"
+                    onclick="addToCart('Dining Set', 1299)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOOKSHELF -->
+        <div class="product-card"
+            data-category="Study">
+
+            <div class="product-image">
+                <img src="images/BOOKSHELF.jpeg"
+                    alt="Wooden Bookshelf">
+            </div>
+
+            <div class="product-info">
+
+                <h3>Wooden Bookshelf</h3>
+
+                <p class="category">
+                    Study
+                </p>
+
+                <p class="price">
+                    ₹599 / month
+                </p>
+
+                <button class="rent-btn"
+                    onclick="addToCart('Wooden Bookshelf', 599)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- WARDROBE -->
+        <div class="product-card"
+            data-category="Bedroom">
+
+            <div class="product-image">
+                <img src="images/WARDROBE.jpeg"
+                    alt="Modern Wardrobe">
+            </div>
+
+            <div class="product-info">
+
+                <h3>Modern Wardrobe</h3>
+
+                <p class="category">
+                    Bedroom
+                </p>
+
+                <p class="price">
+                    ₹1,099 / month
+                </p>
+
+                <button class="rent-btn"
+                    onclick="addToCart('Modern Wardrobe', 1099)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            © 2026 FurniRent | Rent Furniture. Live Comfortably.
+        </p>
+    </footer>
+
+
+    <script>
+
+        function filterFurniture(category) {
+
+            const products =
+                document.querySelectorAll(".product-card");
+
+            products.forEach(function(product) {
+
+                if (
+                    category === "all" ||
+                    product.dataset.category === category
+                ) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
+
+            });
+        }
+
+
+        function addToCart(name, price) {
+
+            let cart =
+                JSON.parse(localStorage.getItem("cart")) || [];
+
+            const existingItem =
+                cart.find(item => item.name === name);
+
+            if (existingItem) {
+
+                existingItem.quantity += 1;
+
+            } else {
+
+                cart.push({
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+
+            }
+
+            localStorage.setItem(
+                "cart",
+                JSON.stringify(cart)
+            );
+
+            alert(name + " added to cart! ");
+        }
+
+    </script>
+
+</body>
+</html>

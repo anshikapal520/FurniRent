@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rental Details - FurniRent</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #faf7f2;
+            color: #333;
+        }
+
+        nav {
+            height: 70px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #8b5e3c;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        nav ul li a:hover {
+            color: #8b5e3c;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #8b5e3c;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .cart-summary {
+            background: #faf7f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .cart-summary h2 {
+            color: #8b5e3c;
+            margin-bottom: 15px;
+        }
+
+        .cart-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .total {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #8b5e3c;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #8b5e3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #68442b;
+        }
+
+        .empty {
+            text-align: center;
+            color: #777;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+
+        <div class="logo">
+            Furni<span>Rent</span>
+        </div>
+
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Furniture</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Rental Details</a></li>
+            <li><a href="cart.html">🛒 Cart</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+
+        <h1>Rental Details</h1>
+
+        <p class="intro">
+            Enter your details to continue with your furniture rental.
+        </p>
+
+
+        <!-- CART SUMMARY -->
+        <div class="cart-summary">
+
+            <h2>Selected Furniture</h2>
+
+            <div id="cartItems">
+                <!-- Cart items will appear here -->
+            </div>
+
+            <div class="total">
+                Total Monthly Rent:
+                ₹<span id="totalRent">0</span>/month
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOMER FORM -->
+        <form id="rentalForm">
+
+            <label>Name</label>
+
+            <input
+                type="text"
+                id="customer_name"
+                placeholder="Enter your name"
+                required
+            >
+
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+
+            <label>Phone Number</label>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Enter your phone number"
+                required
+            >
+
+
+            <label>Delivery Address</label>
+
+            <textarea
+                id="address"
+                placeholder="Enter your complete delivery address"
+                required
+            ></textarea>
+
+
+            <button type="submit">
+                Continue to Payment
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            © 2026 FurniRent | Rent Furniture. Live Comfortably.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        // Get cart from localStorage
+        const cart =
+            JSON.parse(localStorage.getItem("cart")) || [];
+
+
+        const cartItems =
+            document.getElementById("cartItems");
+
+        const totalRent =
+            document.getElementById("totalRent");
+
+
+        let total = 0;
+
+
+        // If cart is empty
+        if (cart.length === 0) {
+
+            cartItems.innerHTML = `
+                <div class="empty">
+                    Your cart is empty.
+                </div>
+            `;
+
+        } else {
+
+            cart.forEach(function(item) {
+
+                const quantity = item.quantity || 1;
+
+                const itemTotal =
+                    item.price * quantity;
+
+                total += itemTotal;
+
+
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <strong>${item.name}</strong>
+                        <br>
+                        Quantity: ${quantity}
+                        <br>
+                        ₹${item.price} × ${quantity}
+                        = ₹${itemTotal}/month
+                    </div>
+                `;
+
+            });
+
+        }
+
+
+        totalRent.innerText = total;
+
+
+        // Submit rental details
+        document
+            .getElementById("rentalForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+
+                if (cart.length === 0) {
+
+                    alert("Your cart is empty.");
+
+                    window.location.href =
+                        "products.html";
+
+                    return;
+                }
+
+
+                // Save customer details
+                const customerDetails = {
+
+                    customer_name:
+                        document.getElementById(
+                            "customer_name"
+                        ).value,
+
+                    email:
+                        document.getElementById(
+                            "email"
+                        ).value,
+
+                    phone:
+                        document.getElementById(
+                            "phone"
+                        ).value,
+
+                    address:
+                        document.getElementById(
+                            "address"
+                        ).value,
+
+                    cart: cart,
+
+                    totalRent: total
+
+                };
+
+
+                localStorage.setItem(
+                    "customerDetails",
+                    JSON.stringify(customerDetails)
+                );
+
+
+                // Go to payment page
+                window.location.href =
+                    "payment.html";
+
+            });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment | FurniRent</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #faf7f2;
+            color: #333;
+        }
+
+        nav {
+            height: 70px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #8b5e3c;
+        }
+
+        .logo span {
+            color: #333;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        nav ul li a:hover {
+            color: #8b5e3c;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #8b5e3c;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .summary {
+            background: #faf7f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .summary h2 {
+            color: #8b5e3c;
+            margin-bottom: 15px;
+        }
+
+        .summary p {
+            margin: 8px 0;
+        }
+
+        .total {
+            font-size: 21px;
+            font-weight: bold;
+            color: #8b5e3c;
+            margin-top: 15px;
+        }
+
+        .payment-option {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .payment-option:hover {
+            border-color: #8b5e3c;
+        }
+
+        .payment-option input {
+            margin-right: 10px;
+        }
+
+        .details {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .details input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .pay-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background-color: #8b5e3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .pay-btn:hover {
+            background-color: #68442b;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+
+        <div class="logo">
+            Furni<span>Rent</span>
+        </div>
+
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Furniture</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="cart.html">🛒 Cart</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- PAYMENT -->
+    <div class="container">
+
+        <h1>Payment</h1>
+
+        <p class="intro">
+            Select your preferred payment method.
+        </p>
+
+
+        <!-- SUMMARY -->
+        <div class="summary">
+
+            <h2>Rental Summary</h2>
+
+            <div id="items"></div>
+
+            <p class="total">
+                Monthly Rent:
+                ₹<span id="totalRent">0</span>/month
+            </p>
+
+        </div>
+
+
+        <!-- PAYMENT OPTIONS -->
+
+        <div class="payment-option">
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    value="UPI"
+                    onclick="showDetails('upi')"
+                >
+
+                UPI
+            </label>
+
+            <div id="upi" class="details">
+
+                <input
+                    type="text"
+                    id="upiId"
+                    placeholder="Enter UPI ID"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="payment-option">
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Card"
+                    onclick="showDetails('card')"
+                >
+
+                Debit / Credit Card
+            </label>
+
+            <div id="card" class="details">
+
+                <input
+                    type="text"
+                    placeholder="Card Number"
+                >
+
+                <input
+                    type="text"
+                    placeholder="Card Holder Name"
+                >
+
+                <input
+                    type="text"
+                    placeholder="MM/YY"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="payment-option">
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    value="Cash"
+                    onclick="showDetails('cash')"
+                >
+
+                Cash on Delivery
+            </label>
+
+            <div id="cash" class="details">
+
+                <p>
+                    Pay your monthly rental amount
+                    at the time of delivery.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="pay-btn"
+            onclick="makePayment()"
+        >
+            Proceed to Payment
+        </button>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            © 2026 FurniRent | Rent Furniture. Live Comfortably.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        const customerDetails =
+            JSON.parse(
+                localStorage.getItem("customerDetails")
+            );
+
+        const items =
+            document.getElementById("items");
+
+        const totalRent =
+            document.getElementById("totalRent");
+
+
+        if (!customerDetails) {
+
+            alert("Rental details not found.");
+
+            window.location.href =
+                "products.html";
+
+        } else {
+
+            totalRent.innerText =
+                customerDetails.totalRent;
+
+
+            customerDetails.cart.forEach(function(item) {
+
+                const quantity =
+                    item.quantity || 1;
+
+                items.innerHTML += `
+                    <p>
+                        ${item.name}
+                        × ${quantity}
+                        — ₹${item.price * quantity}/month
+                    </p>
+                `;
+
+            });
+
+        }
+
+
+        function showDetails(id) {
+
+            document
+                .querySelectorAll(".details")
+                .forEach(function(box) {
+
+                    box.style.display = "none";
+
+                });
+
+
+            document.getElementById(id)
+                .style.display = "block";
+
+        }
+
+
+        function makePayment() {
+
+            const selected =
+                document.querySelector(
+                    'input[name="payment"]:checked'
+                );
+
+
+            if (!selected) {
+
+                alert(
+                    "Please select a payment method."
+                );
+
+                return;
+
+            }
+
+
+            // Demo payment
+            localStorage.setItem(
+                "paymentMethod",
+                selected.value
+            );
+
+
+            localStorage.setItem(
+                "paymentStatus",
+                "Paid"
+            );
+
+
+            window.location.href =
+                "confirmation.html";
+
+        }
+
+    </script>
+
+</body>
+</html>

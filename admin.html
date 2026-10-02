@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FurniRent Admin Panel</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 30px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #333;
+            color: white;
+        }
+
+        select {
+            padding: 6px;
+        }
+
+        select:disabled {
+            background: #eee;
+            color: red;
+            cursor: not-allowed;
+        }
+
+        .cancelled {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>FurniRent Admin Panel</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Furniture</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+
+        <tbody id="ordersTable">
+            <tr>
+                <td colspan="8">Loading orders...</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+
+        async function loadOrders() {
+
+            try {
+
+                const response = await fetch("/api/orders");
+
+                const orders = await response.json();
+
+                const table =
+                    document.getElementById("ordersTable");
+
+                table.innerHTML = "";
+
+                if (orders.length === 0) {
+
+                    table.innerHTML = `
+                        <tr>
+                            <td colspan="8">No orders found.</td>
+                        </tr>
+                    `;
+
+                    return;
+                }
+
+                orders.forEach(order => {
+
+                    const row =
+                        document.createElement("tr");
+
+                    /*
+                     * If customer has cancelled the order,
+                     * admin cannot change its status.
+                     */
+
+                    if (order.status === "Cancelled") {
+
+                        row.innerHTML = `
+                            <td>${order.id}</td>
+
+                            <td>${order.customer_name}</td>
+
+                            <td>${order.email}</td>
+
+                            <td>${order.phone}</td>
+
+                            <td>${order.furniture}</td>
+
+                            <td>${order.address}</td>
+
+                            <td>
+                                <select disabled>
+                                    <option selected>
+                                        Cancelled
+                                    </option>
+                                </select>
+
+                                <span class="cancelled">
+                                    🔒 Cancelled
+                                </span>
+                            </td>
+
+                            <td>${order.created_at}</td>
+                        `;
+
+                    } else {
+
+                        row.innerHTML = `
+                            <td>${order.id}</td>
+
+                            <td>${order.customer_name}</td>
+
+                            <td>${order.email}</td>
+
+                            <td>${order.phone}</td>
+
+                            <td>${order.furniture}</td>
+
+                            <td>${order.address}</td>
+
+                            <td>
+                                <select
+                                    onchange="updateStatus(
+                                        ${order.id},
+                                        this.value
+                                    )"
+                                >
+
+                                    <option
+                                        value="Pending"
+                                        ${order.status === "Pending"
+                                            ? "selected"
+                                            : ""}
+                                    >
+                                        Pending
+                                    </option>
+
+                                    <option
+                                        value="Confirmed"
+                                        ${order.status === "Confirmed"
+                                            ? "selected"
+                                            : ""}
+                                    >
+                                        Confirmed
+                                    </option>
+
+                                    <option
+                                        value="Delivered"
+                                        ${order.status === "Delivered"
+                                            ? "selected"
+                                            : ""}
+                                    >
+                                        Delivered
+                                    </option>
+
+                                    <option
+                                        value="Completed"
+                                        ${order.status === "Completed"
+                                            ? "selected"
+                                            : ""}
+                                    >
+                                        Completed
+                                    </option>
+
+                                    <option
+                                        value="Cancelled"
+                                        ${order.status === "Cancelled"
+                                            ? "selected"
+                                            : ""}
+                                    >
+                                        Cancelled
+                                    </option>
+
+                                </select>
+                            </td>
+
+                            <td>${order.created_at}</td>
+                        `;
+                    }
+
+                    table.appendChild(row);
+
+                });
+
+            } catch (error) {
+
+                document.getElementById("ordersTable").innerHTML = `
+                    <tr>
+                        <td colspan="8">
+                            Unable to load orders.
+                        </td>
+                    </tr>
+                `;
+
+            }
+        }
+
+
+        async function updateStatus(id, status) {
+
+            try {
+
+                const response = await fetch(
+                    `/api/orders/${id}/status`,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            status: status
+                        })
+                    }
+                );
+
+                const result =
+                    await response.json();
+
+                alert(result.message);
+
+                loadOrders();
+
+            } catch (error) {
+
+                alert(
+                    "Unable to update order status."
+                );
+
+            }
+        }
+
+
+        loadOrders();
+
+    </script>
+
+</body>
+</html>
