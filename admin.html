@@ -38,12 +38,6 @@
             padding: 6px;
         }
 
-        select:disabled {
-            background: #eee;
-            color: red;
-            cursor: not-allowed;
-        }
-
         .cancelled {
             color: red;
             font-weight: bold;
@@ -86,8 +80,7 @@
 
                 const orders = await response.json();
 
-                const table =
-                    document.getElementById("ordersTable");
+                const table = document.getElementById("ordersTable");
 
                 table.innerHTML = "";
 
@@ -104,118 +97,28 @@
 
                 orders.forEach(order => {
 
-                    const row =
-                        document.createElement("tr");
+                    const row = document.createElement("tr");
 
-                    /*
-                     * If customer has cancelled the order,
-                     * admin cannot change its status.
-                     */
+                    row.innerHTML = `
+                        <td>${order.id}</td>
+                        <td>${order.customer_name}</td>
+                        <td>${order.email}</td>
+                        <td>${order.phone}</td>
+                        <td>${order.furniture}</td>
+                        <td>${order.address}</td>
 
-                    if (order.status === "Cancelled") {
+                        <td>
+                            <select onchange="updateStatus(${order.id}, this.value)">
+                                <option value="Pending" ${order.status === "Pending" ? "selected" : ""}>Pending</option>
+                                <option value="Confirmed" ${order.status === "Confirmed" ? "selected" : ""}>Confirmed</option>
+                                <option value="Delivered" ${order.status === "Delivered" ? "selected" : ""}>Delivered</option>
+                                <option value="Completed" ${order.status === "Completed" ? "selected" : ""}>Completed</option>
+                                <option value="Cancelled" ${order.status === "Cancelled" ? "selected" : ""}>Cancelled</option>
+                            </select>
+                        </td>
 
-                        row.innerHTML = `
-                            <td>${order.id}</td>
-
-                            <td>${order.customer_name}</td>
-
-                            <td>${order.email}</td>
-
-                            <td>${order.phone}</td>
-
-                            <td>${order.furniture}</td>
-
-                            <td>${order.address}</td>
-
-                            <td>
-                                <select disabled>
-                                    <option selected>
-                                        Cancelled
-                                    </option>
-                                </select>
-
-                                <span class="cancelled">
-                                    🔒 Cancelled
-                                </span>
-                            </td>
-
-                            <td>${order.created_at}</td>
-                        `;
-
-                    } else {
-
-                        row.innerHTML = `
-                            <td>${order.id}</td>
-
-                            <td>${order.customer_name}</td>
-
-                            <td>${order.email}</td>
-
-                            <td>${order.phone}</td>
-
-                            <td>${order.furniture}</td>
-
-                            <td>${order.address}</td>
-
-                            <td>
-                                <select
-                                    onchange="updateStatus(
-                                        ${order.id},
-                                        this.value
-                                    )"
-                                >
-
-                                    <option
-                                        value="Pending"
-                                        ${order.status === "Pending"
-                                            ? "selected"
-                                            : ""}
-                                    >
-                                        Pending
-                                    </option>
-
-                                    <option
-                                        value="Confirmed"
-                                        ${order.status === "Confirmed"
-                                            ? "selected"
-                                            : ""}
-                                    >
-                                        Confirmed
-                                    </option>
-
-                                    <option
-                                        value="Delivered"
-                                        ${order.status === "Delivered"
-                                            ? "selected"
-                                            : ""}
-                                    >
-                                        Delivered
-                                    </option>
-
-                                    <option
-                                        value="Completed"
-                                        ${order.status === "Completed"
-                                            ? "selected"
-                                            : ""}
-                                    >
-                                        Completed
-                                    </option>
-
-                                    <option
-                                        value="Cancelled"
-                                        ${order.status === "Cancelled"
-                                            ? "selected"
-                                            : ""}
-                                    >
-                                        Cancelled
-                                    </option>
-
-                                </select>
-                            </td>
-
-                            <td>${order.created_at}</td>
-                        `;
-                    }
+                        <td>${order.created_at}</td>
+                    `;
 
                     table.appendChild(row);
 
@@ -254,8 +157,7 @@
                     }
                 );
 
-                const result =
-                    await response.json();
+                const result = await response.json();
 
                 alert(result.message);
 
@@ -263,9 +165,7 @@
 
             } catch (error) {
 
-                alert(
-                    "Unable to update order status."
-                );
+                alert("Unable to update order status.");
 
             }
         }
